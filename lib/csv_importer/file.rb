@@ -37,11 +37,11 @@ module CSVImporter
     private
 
     def cleanup!
-      add_datei
       rows[:failed].each do |row|
         next if row.success?
         add_error("Row ##{row.activity_id}: #{row.humanized_errors}")
       end
+      add_datei if success?
     end
 
     def rows
@@ -54,7 +54,7 @@ module CSVImporter
     end
 
     def add_datei
-      return if !valid? && config.validation_only && dtaus.is_empty?
+      return if config.validation_only && dtaus.is_empty?
       dtaus.add_datei("#{path_and_name}_201_mraba.csv")
     end
 

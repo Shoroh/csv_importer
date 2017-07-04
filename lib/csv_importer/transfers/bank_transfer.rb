@@ -10,7 +10,7 @@ module CSVImporter
       end
 
       def import!
-        return false unless can_import?
+        return unless can_import?
         bank_transfer.save!
       end
 

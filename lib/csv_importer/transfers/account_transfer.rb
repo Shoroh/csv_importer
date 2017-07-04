@@ -14,7 +14,7 @@ module CSVImporter
       end
 
       def import!
-        return false unless can_import?
+        return unless can_import?
         if row.depot_activity_id.blank?
           account_transfer.save!
         else

@@ -39,12 +39,12 @@ describe 'ErrorHandler module' do
 
   it 'should be fail if has errors' do
     @subject.errors << 'Some Error'
-    expect(@subject.status).to eq(:fail)
+    expect(@subject.status).to eq(:failed)
   end
 
   it 'can #add_error' do
     @subject.test_to_add_error
-    expect(@subject.status).to eq(:fail)
+    expect(@subject.status).to eq(:failed)
     expect(@subject.valid?).to be_falsy
     expect(@subject.success?).to be_falsy
     expect(@subject.errors).to eq(['Some Error'])

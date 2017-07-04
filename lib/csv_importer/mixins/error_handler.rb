@@ -14,7 +14,7 @@ module CSVImporter
       alias success? valid?
 
       def status
-        success? ? :success : :fail
+        success? ? :success : :failed
       end
 
       def humanized_errors
