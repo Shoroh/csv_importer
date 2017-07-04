@@ -1,18 +1,18 @@
 My thoughts
 =====
 I think it's better to reinvent the Importer from scratch than try to refactor the existed mess.
-In the code I found some mistakes, redundant variables, not effective algorithms, etc.
+In the code, I found some mistakes, redundant variables, not effective algorithms, etc.
 
-Unfortunately, I don't know all requirements to the Exporter, otherwise I could suggest better solution.
+Unfortunately, I don't know all requirements to the Exporter, otherwise, I could suggest a better solution.
 But let's suppose we should start with that we have at the moment.
 
-In the first iteration I'd split the code into entities using Single Responsibility Principle.
+In the first iteration, I'd split the code into entities using Single Responsibility Principle.
 Independent entities are easier to test, easier to refactor.
 For example, we could start with:
 
-FTP class, which is responsible for files gathering, uploading, etc. We could use this class as a Main Class of the Importer for a while, like: CSVImporter::FTP.new.import
+FTP class, which is responsible for files gathering, uploading, etc. We could use this class as a Main Class of the Importer for a while, like CSVImporter::FTP.new.import
 
-Since FTP object returned some files we could path them to another Class — File.
+Since FTP object returned some files we could pass them to another Class — File.
 After some validations the file instance produces rows. Thus, the rows could be managed by Row class.
 
 The Row class should check the activity transaction type and use the chosen one for the last operation — to create a transaction.
@@ -24,15 +24,15 @@ Looks better, isn't?
 The second iteration might be to pull out all global settings to some Config Object.
 Implementation of the Config Object could help us to change all settings in the one place.
 
-The third iteration will be about optimisation. For example, it's faster to download all files at once in parallel, than do it one by one between the import process.
+The third iteration will be about optimization. For example, it's faster to download all files at once in parallel, than to do it one by one between the import processes.
 
-Or, for example, why we should stop the import process if some of the file gets error? Let's keep going, all we have to do is just to mark this file as failed one.
+Or, for example, why we should stop the import process if some of the files get an error? Let's keep going, all we have to do is just to mark this file as failed one.
 
-Why don'we send just one email with the total status when the Import Process is finished? It could contain the list of imported files, their statuses, errors, ids of rows, etc.
+Why don't we send just one email with the total status when the Import Process is finished? It could contain the list of imported files, their statuses, errors, ids of rows, etc.
 
-Depending of the subsequent requirements, we could go further with the refactoring.
+Depending on the subsequent requirements, we could go further with the refactoring.
 
-Why don't we want to pack it as a gem or a Rails plugin? Or even two and more independent gems? It will be usefull, if we're going to use the Importer or its parts in differents platforms with a little changes.
+Why don't we want to pack it as a gem or a Rails plugin? Or even two and more independent gems? It will be useful if we're going to use the Importer or its parts on different platforms with little changes.
 
 Actually, I didn't know that the task is for two hours only :)
 So I was working on it for 2 days until I knew the conditions.
